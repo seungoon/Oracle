@@ -1,0 +1,13 @@
+
+→対策方法：
+CDBでORA-20840
+
+ちなみにcdbに接続する場合は、 sqlnet.oraに下記の追加が必要です。
+こちらもORA-28040で怒られます。
+
+sqlnet.ora(プロファイル構成ファイル)
+SQLNET.ALLOWED_LOGON_VERSION=8
+
+
+
+※参考サイト：http://qiita.com/twinbee/items/dff4c39299dd1c388975
