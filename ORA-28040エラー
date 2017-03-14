@@ -6,10 +6,12 @@
 
 sqlnet.ora(プロファイル構成ファイル)
 SQLNET.ALLOWED_LOGON_VERSION=8
-※補足：SQLNET.ALLOWED_LOGON_VERSIONパラメータを使用して、指定したコード・ツリーの制御下にある
+※補足①：SQLNET.ALLOWED_LOGON_VERSIONパラメータを使用して、指定したコード・ツリーの制御下にある
 　　　　Oracleデータベース・インスタンスへの接続を試行できるOracle Databaseクライアントの最低バージョンを定義します。
 　　　　クライアントのバージョンがこのパラメータで定義したバージョンに満たない場合、認証は失敗し、ORA-28040エラーが発生します。
-    
+※補足②：Oracle8i データベースとOracle9i データベースを使用している場合は、次のようにパラメータを設定します。
+※参考サイト：https://docs.oracle.com/cd/E16338_01/network.112/b56287/sqlnet.htm#BIIEAFHA
+
 ②JDBCを更新する
 Upgrade the JDBC driver to 11g or JDBC 12c.
 These releases can be downloaded from the JDBC/UCP Download Page.
