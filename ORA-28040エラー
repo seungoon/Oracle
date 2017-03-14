@@ -1,13 +1,24 @@
 
 →対策方法：
-CDBでORA-20840
-
+①sqlnet.oraを編集する
 ちなみにcdbに接続する場合は、 sqlnet.oraに下記の追加が必要です。
 こちらもORA-28040で怒られます。
 
 sqlnet.ora(プロファイル構成ファイル)
 SQLNET.ALLOWED_LOGON_VERSION=8
+※補足：SQLNET.ALLOWED_LOGON_VERSIONパラメータを使用して、指定したコード・ツリーの制御下にある
+　　　　Oracleデータベース・インスタンスへの接続を試行できるOracle Databaseクライアントの最低バージョンを定義します。
+　　　　クライアントのバージョンがこのパラメータで定義したバージョンに満たない場合、認証は失敗し、ORA-28040エラーが発生します。
+    
+②JDBCを更新する
+Upgrade the JDBC driver to 11g or JDBC 12c.
+These releases can be downloaded from the JDBC/UCP Download Page.
 
 
+Please make sure to use the appropriate JDBC 11g or JDBC 12c jar files based on the JDK version to be used.
+For details, please refer to :
+
+Document: 401934.1 Starting With Oracle JDBC Drivers 
+Section : Which JDBC driver version goes with which JDK version ?
 
 ※参考サイト：http://qiita.com/twinbee/items/dff4c39299dd1c388975
