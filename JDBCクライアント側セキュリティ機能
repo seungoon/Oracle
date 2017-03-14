@@ -1,0 +1,14 @@
+→認証一覧：　
+
+・Oracle Advanced Securityのサポート
+・ログイン認証のサポート
+・厳密認証のサポート
+・OS認証のサポート
+・データ暗号化と整合性のサポート
+・SSLのサポート
+・Kerberosのサポート
+・RADIUSのサポート
+・セキュアな外部パスワード記憶域
+
+
+※参考サイト：　https://docs.oracle.com/cd/E57425_01/121/JJDBC/clntsec.htm
