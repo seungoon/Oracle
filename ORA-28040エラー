@@ -5,6 +5,7 @@
 こちらもORA-28040で怒られます。
 
 sqlnet.ora(プロファイル構成ファイル)
+※参考サイト：http://qiita.com/twinbee/items/dff4c39299dd1c388975
 SQLNET.ALLOWED_LOGON_VERSION=8
 ※補足①：SQLNET.ALLOWED_LOGON_VERSIONパラメータを使用して、指定したコード・ツリーの制御下にある
 　　　　Oracleデータベース・インスタンスへの接続を試行できるOracle Databaseクライアントの最低バージョンを定義します。
