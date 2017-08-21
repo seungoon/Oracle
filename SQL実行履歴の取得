@@ -1,7 +1,7 @@
 SELECT 
   SQL_ID AS SQLID,,
   FIRST_LOAD_TIME AS SQL開始時間,
-  SQL_FULLTEXT AS SQL文,,
+  SQL_FULLTEXT AS SQL文,
   ROWS_PROCESSED||'件' AS 取得したデータ件数,
   CPU_TIME / 1000000 ||'秒' AS 処理に使用したCPU時間,
   ELAPSED_TIME / 1000000 ||'秒' AS 処理に使用した経過時間
