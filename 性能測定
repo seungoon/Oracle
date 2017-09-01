@@ -1,0 +1,22 @@
+性能測定などをする場合は、
+ALTER SYSTEM FLUSH SHARED_POOL;
+ALTER SYSTEM FLUSH BUFFER_CACHE;
+などのDDL文を流し、DBのキャッシュクリアを行った後に
+改善前後のSQLでパフォーマンス測定をしなければなりません。
+
+SQL一度発行した時に、実行文や抽出したデータブロックなどをキャッシュとして保持し、
+次回実行時により高速に動かそうとする為、キャッシュのクリアが行われてないと
+何も変更してないSQLなのに初回実行と二回目だと勝手にパフォーマンスが上がるなどがあるからです。
+
+ちなみにキャッシュの確認は以下SQLで行えます。
+select
+　　b.obj,
+　　o.object_name,
+　　count(*) blocks,
+　　b.lru_flag,
+　　b.tch
+from
+　　x$bh b
+left outer join dba_objects o
+　　on b.obj = o.object_id
+group by b.obj, o.object_name, b.lru_flag, b.tch;
