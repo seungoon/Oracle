@@ -1,0 +1,6 @@
+select * from v$version;
+
+※説明：
+・エディションについて
+　→Enterprise Edition の場合には「Enterprise Edition」と表示されます。
+　→エディション名が出力されない場合は、Standard Edition がインストールされています。
