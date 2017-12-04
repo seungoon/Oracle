@@ -7,5 +7,9 @@
 　・接続名　　：Local環境
 　・ユーザ名　：system
 　・パスワード：XXXXX(「Oracle 11g Express Edition」をインストールする時、入力したパスワードを設定)
+４．新規の接続用のユーザを作成する。
+　・CREATE USER testUser IDENTIFIED BY "testUser"  --ユーザ作成
+　・GRANT DBA TO testUser                          --DBAロールを付与
+　・GRANT UNLIMITED TABLESPACE TO testUser         --表領域の使用量を無制限にする
  
 ※参考サイト：　https://qiita.com/heignamerican/items/5e69f7590378f2f00549
