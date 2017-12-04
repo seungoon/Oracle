@@ -1,0 +1,11 @@
+１．下記のソフトをインストールする。
+  ・Oracle 11g Express Edition 
+  ・Oracle SQL Developer
+２．接続設定(サービス名およびSID)情報を確認する。
+　・C:\oraclexe\app\oracle\product\11.2.0\server\network\ADMIN\tnsnames.ora を確認(一般的には XE らしい)
+３．「Oracle SQL Developer」で接続を新規追加する。
+　・接続名　　：Local環境
+　・ユーザ名　：system
+　・パスワード：XXXXX(「Oracle 11g Express Edition」をインストールする時、入力したパスワードを設定)
+ 
+※参考サイト：　https://qiita.com/heignamerican/items/5e69f7590378f2f00549
