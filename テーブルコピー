@@ -1,0 +1,6 @@
+テーブルをコピーするには、create table文を使います。その際にコピー元のテーブルからselectしながら、create tableします。
+
+以下の例では、table01をベースにtable01_copyを作っています。
+CREATE TABLE table01_copy NOLOGGING PARALLEL AS SELECT * FROM table01;
+
+※NOLOGGING PARALLELは指定しなくても問題ありませんが、指定すると高速化することができます。
