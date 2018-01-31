@@ -1,0 +1,21 @@
+※Oracleで表領域のサイズと使用量を確認するSQL
+--------------------------------------------------------------------------
+SELECT TB.TABLESPACE_NAME                       AS "表領域"  
+     , TO_CHAR(TB.NOW_SIZE, 'FM9,999,999,990')  AS "現在のサイズ(MB)"  
+     , TO_CHAR(TB.USED_SIZE, 'FM9,999,999,990') AS "使用量(MB)"  
+     , TO_CHAR(  
+               ROUND(TB.USED_SIZE / TB.NOW_SIZE * 100, 2)  
+             , 'FM9,999,999,990.00'  
+              )                                 AS "使用率(%)"  
+  FROM (  
+        SELECT FL.TABLESPACE_NAME                      AS TABLESPACE_NAME  
+             , ROUND(MIN(FL.BYTES) / (1024 * 1024), 2) AS NOW_SIZE  
+             , ROUND(  
+                      MIN(FL.BYTES) / (1024 * 1024)  
+                    - SUM(SP.BYTES) / (1024 * 1024)  
+                    , 2)                               AS USED_SIZE  
+          FROM DBA_DATA_FILES FL  
+             , DBA_FREE_SPACE SP  
+         WHERE FL.FILE_ID = SP.FILE_ID  
+        GROUP BY FL.TABLESPACE_NAME  
+       ) TB  
