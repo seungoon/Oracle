@@ -1,0 +1,19 @@
+※以下のSQL文で対象テーブルを検索する。
+SELECT
+  table_name, owner
+FROM
+  dba_tables
+WHERE
+  table_name = '検索対象のテーブル名'
+ORDER BY
+  owner, table_name;
+  
+或は、下記のSQL文でもOK.
+SELECT
+  table_name, owner
+FROM
+  all_tables
+WHERE
+  table_name = '検索対象のテーブル名'
+ORDER BY
+  owner, table_name;
