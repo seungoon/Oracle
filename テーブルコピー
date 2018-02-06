@@ -4,3 +4,6 @@
 CREATE TABLE table01_copy NOLOGGING PARALLEL AS SELECT * FROM table01;
 
 ※NOLOGGING PARALLELは指定しなくても問題ありませんが、指定すると高速化することができます。
+
+ほかに、レコードはコピーせずに、構造だけをコピーする場合。
+CREATE TABLE table01_copy NOLOGGING PARALLEL AS SELECT * FROM table01 WHERE 1<>1;
