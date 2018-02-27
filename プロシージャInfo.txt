@@ -1,0 +1,68 @@
+
+
+★1.SELECT INTO を使用した単一行の取得用のサンプル
+
+CREATE OR REPLACE PROCEDURE RIVUS.STEP01_SELECT_ALL
+IS
+    TYPE	tUserList	IS TABLE OF USER_MASTER%ROWTYPE;
+    vUsers			tUserList;
+BEGIN
+    SELECT * BULK COLLECT INTO vUsers FROM USER_MASTER;
+    --        ↑ コレクション（ネストした表） vUsers にすべての結果が一度に設定される。
+    DBMS_OUTPUT.PUT_LINE('レコード数は' || vUsers.COUNT || '件です。');
+    DBMS_OUTPUT.PUT_LINE('利用者IDは' || vUsers(1).USER_ID || 'です。');
+    DBMS_OUTPUT.PUT_LINE('利用者名は' || vUsers(1).USER_NAME || 'さんです。');
+ 
+    vUsers.DELETE; -- 要らなくなったから解放
+    DBMS_OUTPUT.PUT_LINE('配列の大きさは' || vUsers.COUNT || 'です。');
+END;
+
+
+★2.自律型トランザクション (Autonomous Transactions)のサンプル
+
+-- エラーのログを保管しておくためのテーブル
+CREATE TABLE RIVUS.ERROR_LOGS
+(
+	USER_CODE	NUMBER(5),
+	USER_ERRM	VARCHAR2(30),
+	CREATED_ON	DATE
+)
+/
+-- 自律型トランザクションでエラーログを保存
+CREATE OR REPLACE PROCEDURE RIVUS.SIMPLE_LOGGER(
+	P_CODE	IN	NUMBER,
+	P_ERRM	IN	VARCHAR2
+)
+IS
+	PRAGMA AUTONOMOUS_TRANSACTION;
+	-- ↑ 自律型トランザクション プラグマ
+BEGIN
+	INSERT INTO ERROR_LOGS(USER_CODE, USER_ERRM, CREATED_ON)
+		VALUES (P_CODE, P_ERRM, SYSDATE);
+	COMMIT;
+	-- AUTONOMOUS_TRANSACTION が宣言されたサブプログラムでは
+	-- トランザクションを終了しないとエラーになる。
+END;
+/
+CREATE OR REPLACE PROCEDURE RIVUS.INSERT_ERROR
+IS
+BEGIN
+ 
+	EXECUTE IMMEDIATE 'INSERT INTO NOT_EXISTS_TABLE VALUES (NULL)';
+	-- COMMIT;  ← 絶対に失敗する予定なので必要なし
+ 
+EXCEPTION WHEN OTHERS THEN
+	DBMS_OUTPUT.PUT_LINE('例外処理しました。ORA' || SQLCODE || ':' || SQLERRM);
+	-- エラーの処理のログを出力
+	SIMPLE_LOGGER(SQLCODE, 'INSERT ERROR');
+	ROLLBACK;
+	-- ↑ メイントランザクションをロールバック
+END;
+/
+--
+-- 実行例
+SQL> CALL INSERT_ERROR();
+例外処理しました。ORA-942:ORA-00942: 表またはビューが存在しません。
+ 
+コールが完了しました。
+
