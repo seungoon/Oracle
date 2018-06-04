@@ -14,5 +14,11 @@
 　　→12Cの場合：　GRANT DBA TO c##testUser
 　・GRANT UNLIMITED TABLESPACE TO testUser         --表領域の使用量を無制限にする
 　　→12Cの場合：　GRANT UNLIMITED TABLESPACE TO c##testUser
- 
+５．権限を確認する
+　　SELECT * FROM user_sys_privs;
+　　-- または
+　　SELECT * FROM session_privs;
+　　-- または
+　　SELECT * FROM dba_sys_privs;
+
 ※参考サイト：　https://qiita.com/heignamerican/items/5e69f7590378f2f00549
