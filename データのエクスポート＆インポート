@@ -1,0 +1,22 @@
+■データのインポート
+imp system/password@XE FILE=c:\dev\dump\db_20181127.dmp log=C:\dev\dump\20181220.log fromuser=user1 touser=user2
+※@XEはTNSのスキーマ名
+
+■データのエクスポート
+exp system/password@XE FILE=c:\dev\dump\db_20181127.dmp log=C:\dev\dump\20181127.log STATISTICS=NONE owner=user1
+※@XEはTNSのスキーマ名
+※STATISTICSはインポート時のデータベース・オプティマイザ統計の処理方法である。
+  ALWAYS：データベース・オプティマイザ統計に問題があるかどうかにかかわらず、常にインポートします。
+  NONE：データベース・オプティマイザ統計をインポートまたは再計算しません。
+  SAFE：データベース・オプティマイザ統計に問題がない場合のみにインポートします。問題がある場合は、
+        オプティマイザ統計を再計算します。
+  RECALCULATE：データベース・オプティマイザ統計をインポートしません。かわりに、インポート時に再計算します。
+               この場合、ダンプ・ファイルを作成した元のエクスポート操作で、必要なANALYZE文を生成している
+               (STATISTICS=NONEを指定してエクスポートを実行していない)必要があります。ANALYZE文は、
+               ダンプ・ファイルに含まれ、インポート操作で表統計の再計算に使用されます。
+
+■既存のOracleスキーマを削除して再作成する方法
+  ・DROP USER user1 CASCADE;
+  ・CREATE USER user1 IDENTIFIED BY "user1" DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp;
+  ・GRANT DBA TO user1;
+  ・GRANT UNLIMITED TABLESPACE TO user1;
