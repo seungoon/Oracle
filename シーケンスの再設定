@@ -1,0 +1,12 @@
+■手順
+１．現在のシーケンス番号の取得する。
+　SELECT シーケンステーブル.CURRVAL FROM DUAL
+ 
+２．現在のシーケンス番号に変更した差分(例=10の場合)を増分値に設定する。
+　ALTER SEQUENCE シーケンステーブル INCREMENT BY 10 NOCACHE 
+ 
+３．次のシーケンス番号の取得する(再設定したい番号と一致することを確認する)。
+　SELECT シーケンステーブル.NEXTVAL FROM DUAL 
+ 
+４．現在のシーケンスの増分値を再設定する
+　ALTER SEQUENCE シーケンステーブル INCREMENT BY 1 NOCACHE 
